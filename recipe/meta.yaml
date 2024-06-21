@@ -1,0 +1,54 @@
+{% set name = "dedupe_Lehvenshtein_search" %}
+{% set version = "1.4.5" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/dedupeio/Levenshtein_search/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: d522128c605bdea30656211132d1d94c37e851b33f895a482877d29e6f1046df
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+  host:
+    - python
+    - pip
+    - setuptools
+    - wheel
+  run:
+    - python
+
+test:
+  source_files:
+    - tests
+  imports:
+    - Levenshtein_search
+  commands:
+    - pip check
+    - pytest tests -v
+  requires:
+    - pip
+    - pytest
+
+about:
+  home: https://github.com/dedupeio/Levenshtein_search
+  dev_url: https://github.com/dedupeio/Levenshtein_search
+  doc_url: https://github.com/dedupeio/Levenshtein_search/blob/v1.4.5/README.md
+  summary: Python search module for fast approximate string matching
+  description: |
+    Levenshtein_search is a Python module that stores any number of
+    documents as ternary search trees. It performs fuzzy searches for
+    words in a document that are d distance away from a query word.
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - viridianmelody
