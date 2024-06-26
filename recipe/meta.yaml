@@ -1,4 +1,4 @@
-{% set name = "dedupe_Lehvenshtein_search" %}
+{% set name = "dedupe_levenshtein_search" %}
 {% set version = "1.4.5" %}
 
 package:
